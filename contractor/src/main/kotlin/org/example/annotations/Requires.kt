@@ -1,4 +1,4 @@
-package contractor.annotations
+package org.example.annotations
 
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CONSTRUCTOR)
 @Retention(AnnotationRetention.SOURCE)
