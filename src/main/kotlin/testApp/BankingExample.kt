@@ -17,27 +17,28 @@ class BankingExample {
     //@ public invariant balance >= 0 && balance <= MAX_BALANCE;
 
     //@ assignable balance;
-    @Ensures("balance == 0")
+    @Ensures()
     constructor() {
+        @Ensures contractorCondition (balance == 0)
         this.balance = 0
     }
 
     //@ assignable balance;
-    @Requires("0 < amount && amount + balance < MAX_BALANCE")
-    @Ensures("balance == @Old(balance) + amount")
     fun credit(amount: Int) {
+        @Requires contractorCondition(0 < amount && amount + balance < MAX_BALANCE)
+        @Ensures contractorCondition(balance == old(balance) + amount)
         this.balance += amount
     }
 
     //@ assignable balance;
-    @Requires("0 < amount && amount <= balance")
-    @Ensures("balance == @Old(balance) - amount")
     fun debit(amount: Int) {
+        @Requires contractorCondition(0 < amount && amount <= balance)
+        @Ensures contractorCondition (balance == old(balance) - amount)
         this.balance -= amount
     }
 
-    @Ensures("isLocked == true")
     fun lockAccount() {
+        @Ensures contractorCondition(isLocked)
         this.isLocked = true
     }
 
@@ -55,4 +56,11 @@ class BankingExample {
             throw Exception()
         }
     }
+}
+
+fun contractorCondition(value: Boolean) {
+}
+
+fun <T> old(value: T): T {
+    return value
 }

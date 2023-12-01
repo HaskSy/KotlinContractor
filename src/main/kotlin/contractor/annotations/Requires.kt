@@ -1,6 +1,6 @@
 package contractor.annotations
 
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CONSTRUCTOR)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CONSTRUCTOR, AnnotationTarget.EXPRESSION)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
-annotation class Requires(val preCond : String)
+annotation class Requires()
