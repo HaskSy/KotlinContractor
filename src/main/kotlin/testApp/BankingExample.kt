@@ -1,44 +1,41 @@
 package testApp
 
-import contractor.annotations.Contracted
+import contractor.annotations.ClassInvariant
 import contractor.annotations.Ensures
 import contractor.annotations.Requires
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.isAccessible
 
-@Contracted
 class BankingExample {
 
     companion object {
         const val MAX_BALANCE: Int = 1000
     }
 
-    /*@ spec_public @*/ private var balance: Int = 0
-    /*@ spec_public @*/ private var isLocked: Boolean = false
+    private var balance: Int = 0
+    private var isLocked: Boolean = false
+    private var selfReference = this
 
-    //@ public invariant balance >= 0 && balance <= MAX_BALANCE;
-
-    //@ assignable balance;
-    @Ensures()
     constructor() {
-        @Ensures contractorCondition (balance == 0)
         this.balance = 0
     }
 
-    //@ assignable balance;
-    fun credit(amount: Int) {
-        @Requires contractorCondition(0 < amount && amount + balance < MAX_BALANCE)
-        @Ensures contractorCondition(balance == old(balance) + amount)
-        this.balance += amount
+    fun credit(amount: Int) = dbc {
+        requires { 0 < amount && amount + balance < MAX_BALANCE }
+        ensures { old<Int>(selfReference, "balance") + amount == balance }
+        balance += amount
     }
+
 
     //@ assignable balance;
     fun debit(amount: Int) {
-        @Requires contractorCondition(0 < amount && amount <= balance)
-        @Ensures contractorCondition (balance == old(balance) - amount)
+//        @Requires contractorCondition(0 < amount && amount <= balance)
+//        @Ensures contractorCondition(balance == old(balance) - amount)
         this.balance -= amount
     }
 
     fun lockAccount() {
-        @Ensures contractorCondition(isLocked)
+//        @Ensures contractorCondition (isLocked)
         this.isLocked = true
     }
 
@@ -58,9 +55,8 @@ class BankingExample {
     }
 }
 
-fun contractorCondition(value: Boolean) {
-}
-
-fun <T> old(value: T): T {
-    return value
+fun main() {
+    val test = BankingExample()
+    test.credit(100)
+    test.credit(100)
 }

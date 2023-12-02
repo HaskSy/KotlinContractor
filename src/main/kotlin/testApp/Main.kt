@@ -1,9 +1,19 @@
 package testApp
 
-fun main(args: Array<String>) {
-    println("Hello World!")
+import java.io.File
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
-}
+//fun main(args: Array<String>) {
+//    val file = File(args[0])
+//    if (!file.exists()) {
+//        System.err.println("File not found: ${args[0]}")
+//        return
+//    }
+//
+//    var sum = 0;
+//    file.forEachLine {
+//        val first = it.first { c -> c.isDigit() } - '0'
+//        val last = it.last { c -> c.isDigit() } - '0'
+//        sum += first * 10 + last
+//    }
+//    println(sum)
+//}
