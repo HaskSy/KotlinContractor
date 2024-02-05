@@ -1,58 +1,92 @@
 package testApp
 
+import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty1
-import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 
-fun <T> dbc(block: ContractContext.() -> T) {
+@DslMarker
+annotation class DbCM;
+
+fun <T> dbc(thisRef: Any, block: ContractContext.() -> T): T {
     var isVerifying: Boolean
     lateinit var ctx: ContractContext
-    lateinit var requiresLambda: () -> Boolean
-    lateinit var ensuresLambda: () -> Boolean
+    val requiresList: MutableList<() -> Boolean> = mutableListOf();
+    val ensuresList: MutableList<() -> Boolean> = mutableListOf();
 
     try {
+
         isVerifying = false
         ctx = object : ContractContext {
             private val oldValues = mutableMapOf<String, Any?>()
-
             override fun requires(precondition: () -> Boolean) {
-                requiresLambda = precondition
-                if (!precondition()) throw IllegalArgumentException("Precondition not satisfied")
+                requiresList.add(precondition)
+                if (!precondition()) {
+                    System.err.println("Precondition is not satisfied, unexpected behaviour might occur")
+                }
             }
 
             override fun ensures(postcondition: () -> Boolean) {
-                postcondition()
-                ensuresLambda = postcondition
+                ensuresList.add(postcondition)
+                postcondition() // If there's function 'old' - calls it
             }
 
-            override fun <V> old(obj: Any, name: String): V {
+            override fun <T> old(property: KMutableProperty1<out Any, T>): T {
                 if (!isVerifying) {
-                    storeOldValue<V>(obj, name)
+                    val casted = property as KProperty1<Any, T>
+                    storeOldValue(thisRef, casted)
                 }
-                return oldValues[name] as? V
-                    ?: throw IllegalArgumentException("No old value stored for $name or type mismatch")
+                return oldValues[property.name] as? T
+                    ?: throw IllegalArgumentException("No old value stored for ${property.name} or type mismatch")
             }
 
-            override fun <V> storeOldValue(obj: Any, name: String) {
-                val property = obj::class.memberProperties.first { it.name == name } as KProperty1<Any, *>
+//            private fun storeOldValue(receiver: Any, propertyName: String) {
+//                val property = receiver::class.memberProperties.first { it.name == propertyName } as KProperty1<Any, *>
+//                val oldAccessibility = property.isAccessible
+//                property.isAccessible = true
+//                oldValues[property.name] = property.get(receiver)
+//                property.isAccessible = oldAccessibility
+//            }
+
+            private fun <T> storeOldValue(receiver: Any, property: KProperty1<Any, T>) {
+                val oldAccessibility = property.isAccessible
                 property.isAccessible = true
-                oldValues[name] = property.get(obj) as V
+                oldValues[property.name] = property.get(receiver)
+                property.isAccessible = oldAccessibility
             }
         }
-        ctx.block()
-
+        return ctx.block()
     } finally {
         isVerifying = true
-        if (!requiresLambda()) throw IllegalArgumentException("Precondition not satisfied")
-        if (!ensuresLambda()) throw IllegalArgumentException("Postcondition not satisfied")
+
+        for (requiresLambda in requiresList) {
+            if (!requiresLambda()) throw IllegalArgumentException("Precondition not satisfied")
+        }
+
+        for (ensuresLambda in ensuresList) {
+            if (!ensuresLambda()) throw IllegalArgumentException("Postcondition not satisfied")
+        }
+
     }
 }
 
 interface ContractContext {
     fun requires(precondition: () -> Boolean)
     fun ensures(postcondition: () -> Boolean)
-
-    fun <V> old(obj: Any, name: String): V
-
-    fun <V> storeOldValue(obj: Any, name: String)
+    fun <T> old(property: KMutableProperty1<out Any, T>): T
 }
+
+//interface Contracted {
+//    fun requires(precondition: () -> Boolean)
+//    fun ensures(postcondition: () -> Boolean)
+//    fun <T, V> old(obj: T, name: String): V
+//}
+//
+//class ContractedInvocationHandler<T>(private val instance: T): InvocationHandler {
+//
+//    private val oldValues = mutableMapOf<String, Any>()
+//    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
+//        val nonNullArgs = args ?: arrayOf()
+//        println(args.contentToString())
+//        return method?.invoke(instance, *nonNullArgs)
+//    }
+//}
