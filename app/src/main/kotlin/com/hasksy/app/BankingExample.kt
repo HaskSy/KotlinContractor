@@ -14,16 +14,16 @@ class BankingExample {
         this.balance = 0
     }
 
-    fun credit(amount: Int) = dbc(this) {
+    fun credit(amount: Int) = dbc {
         requires { 0 < amount && amount + balance < MAX_BALANCE }
-        ensures { old(BankingExample::balance) + amount == balance }
+        ensures { old(balance) + amount == balance }
         balance += amount
     }
 
 
-    fun debit(amount: Int) = dbc(this) {
+    fun debit(amount: Int) = dbc {
         requires { 0 < amount && amount + balance <= MAX_BALANCE }
-        ensures { old(BankingExample::balance) - amount == balance }
+        ensures { old(balance) - amount + 1 == balance }
         balance -= amount
     }
 }

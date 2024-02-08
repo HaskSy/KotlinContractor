@@ -45,11 +45,11 @@
         {
           "name": "contractor-0.1.0.jar",
           "url": "contractor-0.1.0.jar",
-          "size": 10921,
-          "sha512": "bd23bf61916f563b3f334c9ccc8a7fce7d2f56886c92802f25dc9e3fd0ae8897801f977e664cc929f6bdbbb57faf76dff6265b5f8d724ead580fec9eac53e846",
-          "sha256": "6679a209d1e6b5b5aaf8e268d4a25db7068693e0577c9926da092d0fa5d7c5d0",
-          "sha1": "ebd4924540d4d26a081f38dc474dbe1103c51c24",
-          "md5": "139e4340000d89a6eff83994f2f98a79"
+          "size": 13822,
+          "sha512": "563cf8b6e0860ac0ecdababee2059bcc4137c1e76c380b55023d2c5c69c289c65070a6a49f08fc0a9a2f693f3396d82608d993691d77ae41b698f57ccae1ccbc",
+          "sha256": "b7b5b7d0f2d60de32136389705cd1c72017bfbf5e120f808505f2a9cc3b73eec",
+          "sha1": "8a550507aa640fe29c8af15f11f0ed4f6f93527c",
+          "md5": "dd03e999b8f9b7135114a383dac23414"
         }
       ]
     },
@@ -98,11 +98,11 @@
         {
           "name": "contractor-0.1.0.jar",
           "url": "contractor-0.1.0.jar",
-          "size": 10921,
-          "sha512": "bd23bf61916f563b3f334c9ccc8a7fce7d2f56886c92802f25dc9e3fd0ae8897801f977e664cc929f6bdbbb57faf76dff6265b5f8d724ead580fec9eac53e846",
-          "sha256": "6679a209d1e6b5b5aaf8e268d4a25db7068693e0577c9926da092d0fa5d7c5d0",
-          "sha1": "ebd4924540d4d26a081f38dc474dbe1103c51c24",
-          "md5": "139e4340000d89a6eff83994f2f98a79"
+          "size": 13822,
+          "sha512": "563cf8b6e0860ac0ecdababee2059bcc4137c1e76c380b55023d2c5c69c289c65070a6a49f08fc0a9a2f693f3396d82608d993691d77ae41b698f57ccae1ccbc",
+          "sha256": "b7b5b7d0f2d60de32136389705cd1c72017bfbf5e120f808505f2a9cc3b73eec",
+          "sha1": "8a550507aa640fe29c8af15f11f0ed4f6f93527c",
+          "md5": "dd03e999b8f9b7135114a383dac23414"
         }
       ]
     }
