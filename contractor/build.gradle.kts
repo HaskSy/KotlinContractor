@@ -21,8 +21,9 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation(libs.guava)
-
     implementation(kotlin("reflect"))
+    implementation("org.slf4j:slf4j-log4j12:2.0.12")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
 }
 
 testing {

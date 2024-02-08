@@ -45,11 +45,11 @@
         {
           "name": "contractor-0.1.0.jar",
           "url": "contractor-0.1.0.jar",
-          "size": 13822,
-          "sha512": "563cf8b6e0860ac0ecdababee2059bcc4137c1e76c380b55023d2c5c69c289c65070a6a49f08fc0a9a2f693f3396d82608d993691d77ae41b698f57ccae1ccbc",
-          "sha256": "b7b5b7d0f2d60de32136389705cd1c72017bfbf5e120f808505f2a9cc3b73eec",
-          "sha1": "8a550507aa640fe29c8af15f11f0ed4f6f93527c",
-          "md5": "dd03e999b8f9b7135114a383dac23414"
+          "size": 15938,
+          "sha512": "6897e59c8c5658ecb0dc7b2e8cce508b4d318d0a08e246ab0d2dab34ff22e1035e9d61a13b319773c3a610941eecbd7747a528c6163ae90c1d8d174141db3630",
+          "sha256": "87e192dcd4970d6276e35686ccf47049307606bcd4a8edd71f2ce1a3b5bea7c9",
+          "sha1": "ef32284a6b53fa5c2a8facfe7a084a76703326a8",
+          "md5": "768799de509244e04477f4dff169d4e5"
         }
       ]
     },
@@ -80,6 +80,20 @@
           }
         },
         {
+          "group": "org.slf4j",
+          "module": "slf4j-log4j12",
+          "version": {
+            "requires": "2.0.12"
+          }
+        },
+        {
+          "group": "io.github.oshai",
+          "module": "kotlin-logging-jvm",
+          "version": {
+            "requires": "5.1.0"
+          }
+        },
+        {
           "group": "org.apache.commons",
           "module": "commons-math3",
           "version": {
@@ -98,11 +112,11 @@
         {
           "name": "contractor-0.1.0.jar",
           "url": "contractor-0.1.0.jar",
-          "size": 13822,
-          "sha512": "563cf8b6e0860ac0ecdababee2059bcc4137c1e76c380b55023d2c5c69c289c65070a6a49f08fc0a9a2f693f3396d82608d993691d77ae41b698f57ccae1ccbc",
-          "sha256": "b7b5b7d0f2d60de32136389705cd1c72017bfbf5e120f808505f2a9cc3b73eec",
-          "sha1": "8a550507aa640fe29c8af15f11f0ed4f6f93527c",
-          "md5": "dd03e999b8f9b7135114a383dac23414"
+          "size": 15938,
+          "sha512": "6897e59c8c5658ecb0dc7b2e8cce508b4d318d0a08e246ab0d2dab34ff22e1035e9d61a13b319773c3a610941eecbd7747a528c6163ae90c1d8d174141db3630",
+          "sha256": "87e192dcd4970d6276e35686ccf47049307606bcd4a8edd71f2ce1a3b5bea7c9",
+          "sha1": "ef32284a6b53fa5c2a8facfe7a084a76703326a8",
+          "md5": "768799de509244e04477f4dff169d4e5"
         }
       ]
     }
